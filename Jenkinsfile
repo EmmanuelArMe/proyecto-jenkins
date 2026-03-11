@@ -1,8 +1,9 @@
 pipeline {
-    agent {
-        docker {
-            image 'python:3.10'
-        }
+
+    agent any
+
+    options {
+        skipDefaultCheckout()
     }
 
     stages {
@@ -15,6 +16,11 @@ pipeline {
         }
 
         stage('Build') {
+            agent {
+                docker {
+                    image 'python:3.10'
+                }
+            }
             steps {
                 echo 'Instalando dependencias...'
                 sh 'pip install -r requirements.txt'
@@ -22,6 +28,11 @@ pipeline {
         }
 
         stage('Test') {
+            agent {
+                docker {
+                    image 'python:3.10'
+                }
+            }
             steps {
                 echo 'Ejecutando pruebas...'
                 sh 'pytest tests/ -v --tb=short'
