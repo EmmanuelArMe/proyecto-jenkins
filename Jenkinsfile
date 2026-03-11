@@ -2,18 +2,7 @@ pipeline {
 
     agent any
 
-    options {
-        skipDefaultCheckout()
-    }
-
     stages {
-
-        stage('Checkout') {
-            steps {
-                checkout scm
-                echo 'Código fuente descargado exitosamente'
-            }
-        }
 
         stage('Build') {
             agent {
