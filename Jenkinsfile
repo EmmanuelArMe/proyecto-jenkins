@@ -8,6 +8,7 @@ pipeline {
             agent {
                 docker {
                     image 'python:3.10'
+                    reuseNode true
                 }
             }
             steps {
@@ -20,11 +21,12 @@ pipeline {
             agent {
                 docker {
                     image 'python:3.10'
+                    reuseNode true
                 }
             }
             steps {
                 echo 'Ejecutando pruebas...'
-                sh 'pytest tests/ -v --tb=short'
+                sh 'pip install -r requirements.txt && pytest tests/ -v --tb=short'
             }
         }
 
