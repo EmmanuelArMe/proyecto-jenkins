@@ -1,5 +1,9 @@
 pipeline {
-    agent any
+    agent {
+        docker {
+            image 'python:3.10'
+        }
+    }
 
     stages {
 
@@ -13,21 +17,14 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Instalando dependencias...'
-                sh '''
-                python3 -m pip install --upgrade pip
-                python3 -m pip install -r requirements.txt
-                '''
-                echo 'Dependencias instaladas correctamente'
+                sh 'pip install -r requirements.txt'
             }
         }
 
         stage('Test') {
             steps {
                 echo 'Ejecutando pruebas...'
-                sh '''
-                python3 -m pytest tests/ -v --tb=short
-                '''
-                echo 'Pruebas ejecutadas correctamente'
+                sh 'pytest tests/ -v --tb=short'
             }
         }
 
@@ -35,9 +32,7 @@ pipeline {
             steps {
                 echo '=== SIMULACIÓN DE DESPLIEGUE ==='
                 echo 'Construyendo imagen Docker...'
-                sh '''
-                docker build -t devops-demo-app:latest .
-                '''
+                sh 'docker build -t devops-demo-app:latest .'
                 echo 'Imagen construida: devops-demo-app:latest'
                 echo '=== DESPLIEGUE SIMULADO EXITOSAMENTE ==='
             }
