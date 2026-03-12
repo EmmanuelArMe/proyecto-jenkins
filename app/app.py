@@ -3,7 +3,7 @@ from datetime import datetime, timezone
 
 app = Flask(__name__)
 
-# Constantes de error
+# Constante de error
 ERROR_TASK_NOT_FOUND = "Tarea no encontrada"
 
 # "Base de datos" en memoria
