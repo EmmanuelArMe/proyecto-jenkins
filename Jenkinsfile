@@ -4,6 +4,13 @@ pipeline {
 
     stages {
 
+        stage('Checkout') {
+            steps {
+                checkout scm
+                echo 'Código fuente descargado exitosamente'
+            }
+        }
+
         stage('Build') {
             agent {
                 docker {
